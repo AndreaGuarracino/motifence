@@ -60,14 +60,14 @@ fn main() -> io::Result<()> {
 
     for result in reader.records() {
         let record = result.expect("Error reading a record");
-
+        let seq = String::from_utf8(record.seq().to_vec()).unwrap();
+        
         // Iterate over each motif and its reverse complement for searching
         for motif in &motifs {
             let reverse_complement = reverse_complement(&motif);
+            
             let motif_regex = Regex::new(&regex_pattern(&motif)).unwrap();
             let reverse_regex = Regex::new(&regex_pattern(&reverse_complement)).unwrap();
-
-            let seq = String::from_utf8(record.seq().to_vec()).unwrap();
 
             // Search for and write matches of the original motif
             for mat in motif_regex.find_iter(&seq) {
