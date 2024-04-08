@@ -78,7 +78,7 @@ fn main() -> io::Result<()> {
             // Search for and write matches of the reverse complement
             for mat in reverse_regex.find_iter(&seq) {
                 let matched_sequence = &seq[mat.start()..mat.end()];
-                writeln!(writer, "{}\t{}\t{}\t{}\t.\t-\t{}", record.id(), mat.start(), mat.end(), &reverse_complement, matched_sequence)?;
+                writeln!(writer, "{}\t{}\t{}\t{}\t.\t-\t{}", record.id(), mat.start(), mat.end(), motif, matched_sequence)?;
             }
         }
     }
