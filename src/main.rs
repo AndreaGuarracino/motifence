@@ -64,18 +64,16 @@ fn main() -> io::Result<()> {
         
         // Iterate over each motif and its reverse complement for searching
         for motif in &motifs {
-            let reverse_complement = reverse_complement(&motif);
-            
-            let motif_regex = Regex::new(&regex_pattern(&motif)).unwrap();
-            let reverse_regex = Regex::new(&regex_pattern(&reverse_complement)).unwrap();
-
             // Search for and write matches of the original motif
+            let motif_regex = Regex::new(&regex_pattern(&motif)).unwrap();
             for mat in motif_regex.find_iter(&seq) {
                 let matched_sequence = &seq[mat.start()..mat.end()];
                 writeln!(writer, "{}\t{}\t{}\t{}\t.\t+\t{}", record.id(), mat.start(), mat.end(), motif, matched_sequence)?;
             }
 
             // Search for and write matches of the reverse complement
+            let reverse_complement = reverse_complement(&motif);
+            let reverse_regex = Regex::new(&regex_pattern(&reverse_complement)).unwrap();
             for mat in reverse_regex.find_iter(&seq) {
                 let matched_sequence = &seq[mat.start()..mat.end()];
                 writeln!(writer, "{}\t{}\t{}\t{}\t.\t-\t{}", record.id(), mat.start(), mat.end(), motif, matched_sequence)?;
@@ -98,5 +96,5 @@ fn reverse_complement(seq: &str) -> String {
 }
 
 fn regex_pattern(motif: &str) -> String {
-    motif.replace("N", ".")
+    format!("(?i){}", motif.replace("N", ".")) // (?i) enables case-insensitive matching
 }
