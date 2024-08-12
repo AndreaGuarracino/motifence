@@ -1,0 +1,23 @@
+<h2>Description</h2>
+This track provides Prdm9 DNA binding sites for the T2T-CHM13 genome assembly (<a href="https://doi.org/10.1126/science.abj6987">Nurk et al., 2022</a>) by the Telomere-to-Telomere consortium.
+
+<h2>Methods</h2>
+<ul>
+    <li>We applied <a href="https://github.com/AndreaGuarracino/motifence">MOTIFENCE</a> (v0.1.1, commit <code>fb1ebc0</code>) to find DNA sequences matching the canonical 13-mer motif <code>CCNCCNTNNCCNC</code> (<a href="https://doi.org/10.1038/ng.213">Myers et al., 2008</a>):
+        <br/>
+        <br/>
+        <code>
+            motifence --fasta chm13v2.0.fa --motif CCNCCNTNNCCNC | bedtools sort | bgzip -@ 12 -l 9 > chm13v2.0.CCNCCNTNNCCNC.bed.gz
+        </code>
+    </li>
+</ul>
+
+<h2>Credits</h2>
+Track supplied by <a href="mailto:aguarra1@uthsc.edu">Andrea Guarracino</a> in the University of Tennessee Health Science Center.
+
+<h2>References</h2>
+<ul>
+    <li><a href="https://github.com/AndreaGuarracino/motifence">https://github.com/AndreaGuarracino/motifence</a></li>
+    <li><a href="https://doi.org/10.1038/ng.213">Myers et al., 2008. A common sequence motif associated with recombination hot spots and genome instability in humans.</a></li>
+    <li><a href="https://doi.org/10.1126/science.abj6987">Nurk et al., 2022. The complete sequence of a human genome.</a></li>
+</ul>
